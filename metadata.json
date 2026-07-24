@@ -1,0 +1,6 @@
+{
+  "name": "The Ledger",
+  "description": "Proof of earnings platform for real-world money-making skills with verified student receipts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
