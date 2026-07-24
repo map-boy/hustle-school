@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AUDIT_DISCLOSURES_DATA } from '../data/receipts';
 import { ChevronDown, ChevronUp, FileText, HelpCircle } from 'lucide-react';
 
 export const AuditDisclosures: React.FC = () => {
+  const { t } = useTranslation();
   const [expandedId, setExpandedId] = useState<string | null>('disc-01');
 
   const toggleAccordion = (id: string) => {
@@ -17,13 +19,11 @@ export const AuditDisclosures: React.FC = () => {
         <div className="mb-10 text-center md:text-left">
           <div className="text-xs font-mono text-[#B8935F] uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start gap-2">
             <HelpCircle className="w-4 h-4 text-[#B8935F]" />
-            AUDITOR NOTES & FREQUENT INQUIRIES
+            {t('disclosures.notesLabel')}
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#F2EDE4] tracking-tight">
-            Audit Disclosures
-          </h2>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#F2EDE4] tracking-tight">{t('disclosures.title')}</h2>
           <p className="font-sans text-[#F2EDE4]/70 mt-2 max-w-xl text-sm md:text-base">
-            Direct, unvarnished responses regarding our verification methodologies, cohort caps, and student requirements.
+            {t('disclosures.subtitle')}
           </p>
         </div>
 
@@ -69,3 +69,4 @@ export const AuditDisclosures: React.FC = () => {
     </section>
   );
 };
+

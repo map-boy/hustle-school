@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { COURSES_DATA } from '../data/courses';
 import { Course } from '../types';
 import { FileText, CheckCircle2, ShieldCheck, ArrowRight, X } from 'lucide-react';
@@ -52,10 +53,10 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
         <div className="flex justify-between items-center border-b-2 border-[#1A1A1A] pb-4 mb-6">
           <div>
             <div className="font-bold text-base uppercase text-[#1A1A1A] tracking-wider">
-              OFFICIAL ENROLLMENT RECEIPT
+              {t('modal.officialReceipt')}
             </div>
             <div className="text-[10px] text-[#1A1A1A]/60">
-              LEDGER COHORT ENTRY FORM • AUGUST 1, 2026
+              {t('modal.entryForm')} • {t('modal.augustDate')}
             </div>
           </div>
 
@@ -73,7 +74,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             {/* Course Selector */}
             <div>
               <label className="block text-[11px] font-bold text-[#1A1A1A] uppercase mb-2">
-                1. CHOOSE SKILL COHORT STREAM
+                {t('modal.step1')}
               </label>
               <select
                 value={selectedCourseId}
@@ -92,12 +93,12 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-[#1A1A1A] uppercase mb-1.5">
-                  FULL LEGAL NAME
+                  {t('modal.fullName')}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Alex Vance"
+                  placeholder={t('modal.fullNamePlaceholder')}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full bg-[#1A1A1A]/5 border border-[#1A1A1A]/30 text-[#1A1A1A] font-mono text-xs p-2.5 rounded-[2px] focus:outline-none focus:border-[#C1440E]"
@@ -106,12 +107,12 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
 
               <div>
                 <label className="block text-[11px] font-bold text-[#1A1A1A] uppercase mb-1.5">
-                  EMAIL ADDRESS
+                  {t('modal.emailAddress')}
                 </label>
                 <input
                   type="email"
                   required
-                  placeholder="alex@company.com"
+                  placeholder={t('modal.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-[#1A1A1A]/5 border border-[#1A1A1A]/30 text-[#1A1A1A] font-mono text-xs p-2.5 rounded-[2px] focus:outline-none focus:border-[#C1440E]"
@@ -122,8 +123,8 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             {/* Itemized Line Item Invoice */}
             <div className="p-4 bg-[#1A1A1A]/5 border border-dashed border-[#1A1A1A]/30 space-y-2 text-xs">
               <div className="font-bold border-b border-[#1A1A1A]/20 pb-1.5 flex justify-between">
-                <span>ITEM DESCRIPTION</span>
-                <span>AMOUNT</span>
+                <span>{t('modal.itemDescription')}</span>
+                <span>{t('modal.amount')}</span>
               </div>
 
               <div className="flex justify-between text-[#1A1A1A]/90">
@@ -132,17 +133,17 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               </div>
 
               <div className="flex justify-between text-[11px] text-[#1A1A1A]/70">
-                <span>30-Day Escrow Refund Terms</span>
-                <span className="text-[#0B3D2E] font-bold">INCLUDED</span>
+                <span>{t('modal.escrowTerms')}</span>
+                <span className="text-[#0B3D2E] font-bold">{t('modal.included')}</span>
               </div>
 
               <div className="flex justify-between text-[11px] text-[#1A1A1A]/70">
-                <span>Cohort Seat Reservation</span>
-                <span className="text-[#C1440E] font-bold">SEAT #{26 - selectedCourse.cohortRemaining}</span>
+                <span>{t('modal.seatReservation')}</span>
+                <span className="text-[#C1440E] font-bold">{t('modal.seat')}{26 - selectedCourse.cohortRemaining}</span>
               </div>
 
               <div className="pt-2 border-t border-[#1A1A1A]/20 flex justify-between font-bold text-sm text-[#0B3D2E]">
-                <span>TOTAL CAPITAL DUE:</span>
+                <span>{t('modal.totalDue')}</span>
                 <span>${selectedCourse.investment.toFixed(2)} USD</span>
               </div>
             </div>
@@ -150,13 +151,13 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             {/* Payment Options */}
             <div>
               <label className="block text-[11px] font-bold text-[#1A1A1A] uppercase mb-2">
-                PAYMENT DISBURSEMENT METHOD
+                {t('modal.paymentMethod')}
               </label>
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 {[
-                  { id: 'card', label: 'CREDIT / STRIPE' },
-                  { id: 'wise', label: 'WISE / WIRE' },
-                  { id: 'crypto', label: 'USDC / CRYPTO' },
+                  { id: 'card', label: t('modal.payCard') },
+                  { id: 'wise', label: t('modal.payWise') },
+                  { id: 'crypto', label: t('modal.payCrypto') },
                 ].map((m) => (
                   <button
                     type="button"
@@ -181,12 +182,12 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 className="w-full bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-mono text-sm font-bold py-3.5 px-4 rounded-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider shadow-sm"
               >
                 <FileText className="w-4 h-4" />
-                <span>Issue My Receipt (${selectedCourse.investment})</span>
+                <span>{t('modal.issueReceipt')}${selectedCourse.investment})</span>
               </button>
 
               <div className="text-[10px] text-[#1A1A1A]/60 text-center mt-2.5 flex items-center justify-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#0B3D2E]" />
-                <span>Protected by 30-Day Escrow Guarantee Protocol</span>
+                <span>{t('modal.protectedBy')}</span>
               </div>
             </div>
 
@@ -199,45 +200,45 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             </div>
 
             <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
-              Receipt Issued & Seat Locked
+              {t('modal.receiptIssued')}
             </h3>
 
             <div className="p-4 bg-[#1A1A1A]/5 font-mono text-xs border border-dashed border-[#1A1A1A]/30 text-left space-y-2">
               <div className="flex justify-between border-b border-[#1A1A1A]/20 pb-1">
-                <span className="text-[#1A1A1A]/60">RECEIPT NUMBER:</span>
+                <span className="text-[#1A1A1A]/60">{t('modal.receiptNumber')}</span>
                 <span className="font-bold text-[#C1440E]">{generatedReceiptId}</span>
               </div>
 
               <div className="flex justify-between border-b border-[#1A1A1A]/20 pb-1">
-                <span className="text-[#1A1A1A]/60">STUDENT:</span>
+                <span className="text-[#1A1A1A]/60">{t('modal.student')}</span>
                 <span className="font-bold">{fullName}</span>
               </div>
 
               <div className="flex justify-between border-b border-[#1A1A1A]/20 pb-1">
-                <span className="text-[#1A1A1A]/60">COHORT:</span>
+                <span className="text-[#1A1A1A]/60">{t('modal.cohort')}</span>
                 <span>{selectedCourse.item}</span>
               </div>
 
               <div className="flex justify-between border-b border-[#1A1A1A]/20 pb-1">
-                <span className="text-[#1A1A1A]/60">START DATE:</span>
+                <span className="text-[#1A1A1A]/60">{t('modal.startDate')}</span>
                 <span>AUGUST 1, 2026</span>
               </div>
 
               <div className="flex justify-between font-bold text-sm text-[#0B3D2E] pt-1">
-                <span>STATUS:</span>
-                <span>*** CONFIRMED & AUDITED ***</span>
+                <span>{t('modal.status')}</span>
+                <span>{t('modal.confirmedAudited')}</span>
               </div>
             </div>
 
             <p className="text-xs text-[#1A1A1A]/80 font-sans">
-              An onboarding link and cohort dashboard access key have been dispatched to <strong>{email}</strong>.
+              {t('modal.onboardingSent')} <strong>{email}</strong>.
             </p>
 
             <button
               onClick={onClose}
               className="bg-[#1A1A1A] hover:bg-[#333] text-[#F2EDE4] font-mono text-xs font-bold py-3 px-6 rounded-[2px] transition-colors cursor-pointer uppercase tracking-wider"
             >
-              Return to Ledger Sheet
+              {t('modal.returnToLedger')}
             </button>
           </div>
         )}
@@ -248,3 +249,4 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
     </div>
   );
 };
+

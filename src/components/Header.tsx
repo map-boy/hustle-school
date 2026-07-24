@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ShieldCheck, FileText, ArrowRight, Activity } from 'lucide-react';
 
 interface HeaderProps {
@@ -6,6 +7,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
+  const { t } = useTranslation();
   const [time, setTime] = useState<string>('');
 
   useEffect(() => {
@@ -28,13 +30,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
           </div>
           <div className="flex flex-col">
             <span className="font-serif text-xl tracking-tight font-bold text-[#F2EDE4] flex items-center gap-2">
-              THE LEDGER
+              {t('header.brandName')}
               <span className="text-[10px] font-mono tracking-widest px-1.5 py-0.5 border border-[#B8935F] text-[#B8935F] uppercase font-normal">
-                AUDITED
+                {t('header.audited')}
               </span>
             </span>
             <span className="text-[11px] font-mono text-[#F2EDE4]/60 tracking-wider">
-              VERIFIED PROOF OF SKILLS
+              {t('header.tagline')}
             </span>
           </div>
         </a>
@@ -46,25 +48,25 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7ECB9E] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#7ECB9E]"></span>
             </span>
-            <span>NODE #04 SYNCED</span>
+            <span>{t('header.nodeSynced')}</span>
           </div>
           <span className="text-[#F2EDE4]/30">|</span>
           <div className="text-[#F2EDE4]/80">
-            TOTAL PAYOUTS: <span className="text-[#B8935F] font-semibold">$14,289,450.00</span>
+            {t('header.totalPayouts')} <span className="text-[#B8935F] font-semibold">$14,289,450.00</span>
           </div>
           <span className="text-[#F2EDE4]/30">|</span>
           <div className="text-[#F2EDE4]/70">
-            TIME: <span className="text-[#F2EDE4]">{time || '12:00:00 UTC'}</span>
+            {t('header.time')} <span className="text-[#F2EDE4]">{time || '12:00:00 UTC'}</span>
           </div>
         </div>
 
         {/* Right CTA */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6 text-sm font-sans text-[#F2EDE4]/80">
-            <a href="#ledger-items" className="hover:text-[#F2EDE4] transition-colors">Courses</a>
-            <a href="#proof-feed" className="hover:text-[#F2EDE4] transition-colors">Receipt Feed</a>
-            <a href="#calculator" className="hover:text-[#F2EDE4] transition-colors">Calculator</a>
-            <a href="#audit-terms" className="hover:text-[#F2EDE4] transition-colors">Guarantee</a>
+            <a href="#ledger-items" className="hover:text-[#F2EDE4] transition-colors">{t('header.navCourses')}</a>
+            <a href="#proof-feed" className="hover:text-[#F2EDE4] transition-colors">{t('header.navReceiptFeed')}</a>
+            <a href="#calculator" className="hover:text-[#F2EDE4] transition-colors">{t('header.navCalculator')}</a>
+            <a href="#audit-terms" className="hover:text-[#F2EDE4] transition-colors">{t('header.navGuarantee')}</a>
           </nav>
 
           <button
@@ -72,10 +74,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
             className="bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-mono text-xs md:text-sm font-semibold px-4 py-2 rounded-[2px] transition-all flex items-center gap-2 active:translate-y-0.5 cursor-pointer"
           >
             <FileText className="w-4 h-4" />
-            <span>Get your receipt</span>
+            <span>{t('header.getReceipt')}</span>
           </button>
         </div>
       </div>
     </header>
   );
 };
+

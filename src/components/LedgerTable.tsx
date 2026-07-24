@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Course } from '../types';
 import { COURSES_DATA } from '../data/courses';
 import { ChevronDown, ChevronUp, FileText, Check, ArrowRight, AlertCircle } from 'lucide-react';
@@ -8,6 +9,7 @@ interface LedgerTableProps {
 }
 
 export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) => {
+  const { t } = useTranslation();
   const [expandedCourseId, setExpandedCourseId] = useState<string | null>('b2b-copywriting');
 
   const toggleExpand = (id: string) => {
@@ -23,19 +25,19 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
           <div>
             <div className="text-xs font-mono text-[#B8935F] uppercase tracking-widest mb-2 flex items-center gap-2">
               <span className="w-2 h-2 bg-[#B8935F]"></span>
-              LEDGER SHEET • COHORT SCHEDULE 2026
+              {t('ledger.sheetLabel')} â€¢ {t('ledger.cohortSchedule')}
             </div>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#F2EDE4] tracking-tight">
-              Active Skill Streams
+              {t('ledger.title')}
             </h2>
             <p className="font-sans text-[#F2EDE4]/70 mt-2 max-w-xl text-sm md:text-base">
-              Every course is listed as a ledger line item. No boxed cards or generic feature icons—just investment capital, verified return metrics, and expected payback timelines.
+              Every course is listed as a ledger line item. No boxed cards or generic feature iconsâ€”just investment capital, verified return metrics, and expected payback timelines.
             </p>
           </div>
 
           <div className="font-mono text-xs text-[#F2EDE4]/60 border border-[#F2EDE4]/15 p-3 bg-[#082D22] flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#7ECB9E] animate-pulse"></span>
-            <span>AUGUST COHORT: <strong className="text-[#F2EDE4]">SEATS OPENING</strong></span>
+            <span>{t('ledger.augustCohort')} <strong className="text-[#F2EDE4]">{t('ledger.seatsOpening')}</strong></span>
           </div>
         </div>
 
@@ -46,11 +48,11 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
             {/* Ledger Table Header */}
             <thead>
               <tr className="border-b border-[#F2EDE4]/20 bg-[#082D22] font-mono text-xs text-[#F2EDE4]/60 uppercase tracking-wider">
-                <th className="py-4 px-6 font-medium">ITEM (COURSE NAME)</th>
-                <th className="py-4 px-6 font-medium text-right">INVESTMENT</th>
-                <th className="py-4 px-6 font-medium text-right">RETURN (AVG)</th>
-                <th className="py-4 px-6 font-medium text-center">PAYBACK</th>
-                <th className="py-4 px-6 font-medium text-right">ACTION</th>
+                <th className="py-4 px-6 font-medium">{t('ledger.colItem')}</th>
+                <th className="py-4 px-6 font-medium text-right">{t('ledger.colInvestment')}</th>
+                <th className="py-4 px-6 font-medium text-right">{t('ledger.colReturn')}</th>
+                <th className="py-4 px-6 font-medium text-center">{t('ledger.colPayback')}</th>
+                <th className="py-4 px-6 font-medium text-right">{t('ledger.colAction')}</th>
               </tr>
             </thead>
 
@@ -79,7 +81,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                               {course.item}
                             </div>
                             <div className="font-mono text-xs text-[#F2EDE4]/50 mt-0.5">
-                              {course.category} • {course.verifiedInvoicesCount} Verified Invoices
+                              {course.category} â€¢ {course.verifiedInvoicesCount} {t('ledger.verifiedInvoices')}
                             </div>
                           </div>
                         </div>
@@ -97,7 +99,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
 
                       {/* Column 4: PAYBACK */}
                       <td className="py-5 px-6 text-center font-mono text-sm text-[#B8935F]">
-                        {course.paybackDays} Days
+                        {course.paybackDays} {t('ledger.days')}
                       </td>
 
                       {/* Column 5: ACTION */}
@@ -107,14 +109,14 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                             onClick={() => onOpenEnrollment(course.id)}
                             className="bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-mono text-xs font-semibold px-4 py-2 rounded-[2px] transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap active:translate-y-0.5"
                           >
-                            <span>Get your receipt</span>
+                            <span>{t('ledger.getReceipt')}</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
 
                           <button
                             onClick={() => toggleExpand(course.id)}
                             className="p-1.5 border border-[#F2EDE4]/20 hover:border-[#F2EDE4] text-[#F2EDE4]/70 hover:text-[#F2EDE4] transition-colors rounded-[2px] cursor-pointer"
-                            title="Expand Ledger Details"
+                            title={t('ledger.expandDetails')}
                           >
                             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                           </button>
@@ -132,7 +134,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                             <div className="md:col-span-6 space-y-4">
                               <div>
                                 <h4 className="font-serif font-bold text-lg text-[#F2EDE4]">
-                                  Stream Breakdown
+                                  {t('ledger.streamBreakdown')}
                                 </h4>
                                 <p className="text-sm text-[#F2EDE4]/80 mt-1 leading-relaxed">
                                   {course.summary}
@@ -141,7 +143,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
 
                               <div className="p-4 border border-[#F2EDE4]/15 bg-[#0B3D2E] font-mono text-xs space-y-2">
                                 <div className="text-[#B8935F] uppercase font-bold tracking-wider">
-                                  TARGET CLIENT PROFILE:
+                                  {t('ledger.targetClientProfile')}
                                 </div>
                                 <div className="text-[#F2EDE4]/90">
                                   {course.targetClient}
@@ -150,11 +152,11 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
 
                               <div className="flex items-center gap-4 font-mono text-xs text-[#F2EDE4]/70 pt-2">
                                 <div>
-                                  SEATS REMAINING: <strong className="text-[#C1440E]">{course.cohortRemaining} SEATS</strong>
+                                  {t('ledger.seatsRemaining')} <strong className="text-[#C1440E]">{course.cohortRemaining} {t('ledger.seats')}</strong>
                                 </div>
-                                <span>•</span>
+                                <span>â€¢</span>
                                 <div>
-                                  START DATE: <strong className="text-[#F2EDE4]">{course.cohortStartDate}</strong>
+                                  {t('ledger.startDate')} <strong className="text-[#F2EDE4]">{course.cohortStartDate}</strong>
                                 </div>
                               </div>
                             </div>
@@ -162,7 +164,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                             {/* Core Deliverables / Syllabus */}
                             <div className="md:col-span-6 space-y-4">
                               <h4 className="font-serif font-bold text-lg text-[#F2EDE4]">
-                                Core Output Deliverables
+                                {t('ledger.coreDeliverables')}
                               </h4>
 
                               <ul className="space-y-2.5 font-sans text-xs md:text-sm">
@@ -179,7 +181,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                               <div className="pt-4 flex items-center justify-between border-t border-[#F2EDE4]/15">
                                 <div className="font-mono text-xs text-[#7ECB9E] flex items-center gap-1.5">
                                   <Check className="w-4 h-4" />
-                                  <span>30-Day Escrow Guarantee Eligible</span>
+                                  <span>{t('ledger.escrowEligible')}</span>
                                 </div>
 
                                 <button
@@ -187,7 +189,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
                                   className="bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-mono text-xs font-bold px-5 py-2.5 rounded-[2px] transition-all flex items-center gap-2 cursor-pointer"
                                 >
                                   <FileText className="w-3.5 h-3.5" />
-                                  <span>Claim Seat #{26 - course.cohortRemaining}</span>
+                                  <span>{t('ledger.claimSeat')}{26 - course.cohortRemaining}</span>
                                 </button>
                               </div>
                             </div>
@@ -207,10 +209,10 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
         {/* Footnote */}
         <div className="mt-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-[#F2EDE4]/50 gap-2">
           <div>
-            * Return figures represent 90-day post-enrollment mean verified revenue from active students.
+            {t('ledger.footnote')}
           </div>
           <div className="text-[#B8935F]">
-            ALL FIGURES AUDITED QUARTERLY
+            {t('ledger.auditedQuarterly')}
           </div>
         </div>
 
@@ -218,3 +220,4 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ onOpenEnrollment }) =>
     </section>
   );
 };
+

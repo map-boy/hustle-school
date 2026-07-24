@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const { t } = useTranslation();
   const [lookupId, setLookupId] = useState<string>('');
   const [lookupResult, setLookupResult] = useState<string | null>(null);
 
   const handleLookup = (e: React.FormEvent) => {
     e.preventDefault();
     if (!lookupId.trim()) return;
-    setLookupResult(`HASH #${lookupId.trim().toUpperCase()} • VERIFIED ON-CHAIN LEDGER STATUS: ACTIVE (MATCHED STACK)`);
+    setLookupResult(`${t('footer.lookupResultPrefix')}${lookupId.trim().toUpperCase()} • ${t('footer.lookupResultSuffix')}`);
   };
 
   return (
@@ -23,34 +25,32 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 bg-[#F2EDE4] text-[#1A1A1A] flex items-center justify-center font-mono font-bold text-lg border border-[#F2EDE4]">
                 L
               </div>
-              <span className="font-serif text-2xl font-bold tracking-tight text-[#F2EDE4]">
-                THE LEDGER
-              </span>
+              <span className="font-serif text-2xl font-bold tracking-tight text-[#F2EDE4]">{t('footer.brandName')}</span>
             </div>
 
             <p className="text-sm text-[#F2EDE4]/70 max-w-md leading-relaxed">
-              An online skill acquisition protocol built around verified proof of earnings, cryptographically validated invoice logs, and 30-day performance escrow agreements.
+              {t('footer.brandDesc')}
             </p>
 
             <div className="font-mono text-xs text-[#7ECB9E] flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#7ECB9E] animate-pulse"></span>
-              <span>LEDGER NODE #04 • ONLINE & SYNCED</span>
+              <span>{t('footer.nodeStatus')}</span>
             </div>
           </div>
 
           {/* Receipt Verification Lookup Tool */}
           <div className="lg:col-span-6 bg-[#0B3D2E] p-6 border border-[#F2EDE4]/20 space-y-3 font-mono text-xs">
             <div className="text-[#B8935F] uppercase font-bold tracking-wider">
-              RECEIPT AUTHENTICITY LOOKUP
+              {t('footer.lookupTitle')}
             </div>
             <p className="text-[#F2EDE4]/70 text-[11px] font-sans">
-              Enter any student invoice number or transaction hash to verify original audit credentials.
+              {t('footer.lookupDesc')}
             </p>
 
             <form onSubmit={handleLookup} className="flex gap-2">
               <input
                 type="text"
-                placeholder="e.g. TX-892401-2026 or INV-88219"
+                placeholder={t('footer.lookupPlaceholder')}
                 value={lookupId}
                 onChange={(e) => setLookupId(e.target.value)}
                 className="flex-1 bg-[#082D22] border border-[#F2EDE4]/20 text-[#F2EDE4] placeholder-[#F2EDE4]/40 p-2.5 rounded-[2px] focus:outline-none focus:border-[#B8935F]"
@@ -58,9 +58,7 @@ export const Footer: React.FC = () => {
               <button
                 type="submit"
                 className="bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-bold px-4 py-2.5 rounded-[2px] transition-colors cursor-pointer"
-              >
-                VERIFY
-              </button>
+              >{t('footer.verify')}</button>
             </form>
 
             {lookupResult && (
@@ -76,42 +74,42 @@ export const Footer: React.FC = () => {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-[#F2EDE4]/10 text-xs font-mono text-[#F2EDE4]/70">
           <div>
-            <div className="text-[#B8935F] uppercase font-bold mb-3">COHORT STREAMS</div>
+            <div className="text-[#B8935F] uppercase font-bold mb-3">{t('footer.colStreams')}</div>
             <ul className="space-y-2">
-              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">B2B Copywriting</a></li>
-              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">Outreach Systems</a></li>
-              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">Webflow & Framer</a></li>
-              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">Fractional Operations</a></li>
+              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">{t('footer.linkCopywriting')}</a></li>
+              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">{t('footer.linkOutreach')}</a></li>
+              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">{t('footer.linkWebflow')}</a></li>
+              <li><a href="#ledger-items" className="hover:text-[#F2EDE4]">{t('footer.linkOperations')}</a></li>
             </ul>
           </div>
 
           <div>
-            <div className="text-[#B8935F] uppercase font-bold mb-3">AUDIT & PROOF</div>
+            <div className="text-[#B8935F] uppercase font-bold mb-3">{t('footer.colAuditProof')}</div>
             <ul className="space-y-2">
-              <li><a href="#proof-feed" className="hover:text-[#F2EDE4]">Live Invoice Feed</a></li>
-              <li><a href="#audit-terms" className="hover:text-[#F2EDE4]">Escrow Refund Terms</a></li>
-              <li><a href="#calculator" className="hover:text-[#F2EDE4]">ROI Estimator Engine</a></li>
-              <li><a href="#audit-terms" className="hover:text-[#F2EDE4]">Stripe Integration Hashes</a></li>
+              <li><a href="#proof-feed" className="hover:text-[#F2EDE4]">{t('footer.linkLiveFeed')}</a></li>
+              <li><a href="#audit-terms" className="hover:text-[#F2EDE4]">{t('footer.linkEscrowTerms')}</a></li>
+              <li><a href="#calculator" className="hover:text-[#F2EDE4]">{t('footer.linkRoiEngine')}</a></li>
+              <li><a href="#audit-terms" className="hover:text-[#F2EDE4]">{t('footer.linkStripeHashes')}</a></li>
             </ul>
           </div>
 
           <div>
-            <div className="text-[#B8935F] uppercase font-bold mb-3">DISCLOSURES</div>
+            <div className="text-[#B8935F] uppercase font-bold mb-3">{t('footer.colDisclosures')}</div>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-[#F2EDE4]">Earnings Audit Policy</a></li>
-              <li><a href="#" className="hover:text-[#F2EDE4]">Student NDA Protocols</a></li>
-              <li><a href="#" className="hover:text-[#F2EDE4]">Privacy & Cookie Policy</a></li>
-              <li><a href="#" className="hover:text-[#F2EDE4]">Cohort Terms of Service</a></li>
+              <li><a href="#" className="hover:text-[#F2EDE4]">{t('footer.linkEarningsPolicy')}</a></li>
+              <li><a href="#" className="hover:text-[#F2EDE4]">{t('footer.linkNda')}</a></li>
+              <li><a href="#" className="hover:text-[#F2EDE4]">{t('footer.linkPrivacy')}</a></li>
+              <li><a href="#" className="hover:text-[#F2EDE4]">{t('footer.linkTos')}</a></li>
             </ul>
           </div>
 
           <div>
-            <div className="text-[#B8935F] uppercase font-bold mb-3">CONTACT LEDGER NODE</div>
+            <div className="text-[#B8935F] uppercase font-bold mb-3">{t('footer.colContact')}</div>
             <p className="text-[#F2EDE4]/60 font-sans text-xs leading-normal">
-              Auditor Desk: audit@theledgerprotocol.org
+              {t('footer.auditorDesk')}
             </p>
             <p className="text-[#F2EDE4]/60 font-sans text-xs mt-2">
-              San Francisco, CA • London, UK
+              {t('footer.locations')}
             </p>
           </div>
         </div>
@@ -119,12 +117,12 @@ export const Footer: React.FC = () => {
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-[#F2EDE4]/10 flex flex-col md:flex-row items-center justify-between text-xs font-mono text-[#F2EDE4]/50 gap-4">
           <div>
-            © 2026 THE LEDGER PROTOCOL INC. ALL RIGHTS RESERVED.
+            {t('footer.copyright')}
           </div>
           <div className="flex items-center gap-4">
-            <span>SEC-01 COMPLIANT</span>
-            <span>•</span>
-            <span>STRIPE VERIFIED HASHES</span>
+            <span>{t('footer.secCompliant')}</span>
+            <span>â€¢</span>
+            <span>{t('footer.stripeVerified')}</span>
           </div>
         </div>
 
@@ -132,3 +130,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+

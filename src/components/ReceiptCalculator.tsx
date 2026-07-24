@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { COURSES_DATA } from '../data/courses';
 import { Calculator, Printer, ArrowRight, Check } from 'lucide-react';
 
@@ -7,6 +8,7 @@ interface ReceiptCalculatorProps {
 }
 
 export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnrollment }) => {
+  const { t } = useTranslation();
   const [selectedCourseId, setSelectedCourseId] = useState<string>('b2b-copywriting');
   const [weeklyHours, setWeeklyHours] = useState<number>(12);
   const [experienceLevel, setExperienceLevel] = useState<'beginner' | 'intermediate' | 'experienced'>('beginner');
@@ -29,13 +31,13 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
         <div className="mb-12">
           <div className="text-xs font-mono text-[#B8935F] uppercase tracking-widest mb-2 flex items-center gap-2">
             <Calculator className="w-4 h-4 text-[#B8935F]" />
-            ESTIMATION ENGINE
+            {t('calculator.engineLabel')}
           </div>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#F2EDE4] tracking-tight">
-            Print Your Projected Receipt
+            {t('calculator.title')}
           </h2>
           <p className="font-sans text-[#F2EDE4]/70 mt-2 max-w-2xl text-sm md:text-base">
-            Select your target skill stream and weekly time commitment to compute your estimated payback window and first client retainer invoice.
+            {t('calculator.subtitle')}
           </p>
         </div>
 
@@ -47,7 +49,7 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
             {/* Step 1: Select Skill Stream */}
             <div>
               <label className="block font-mono text-xs text-[#B8935F] uppercase font-bold mb-3">
-                1. SELECT SKILL STREAM
+                {t('calculator.step1')}
               </label>
               <div className="space-y-2">
                 {COURSES_DATA.map((course) => (
@@ -73,9 +75,9 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
             <div>
               <div className="flex justify-between items-center mb-2 font-mono text-xs">
                 <label className="text-[#B8935F] uppercase font-bold">
-                  2. WEEKLY COMMITMENT
+                  {t('calculator.step2')}
                 </label>
-                <span className="text-[#F2EDE4] font-bold">{weeklyHours} HOURS / WEEK</span>
+                <span className="text-[#F2EDE4] font-bold">{weeklyHours} {t('calculator.hoursPerWeek')}</span>
               </div>
               <input
                 type="range"
@@ -87,22 +89,22 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
                 className="w-full accent-[#C1440E] cursor-pointer bg-[#082D22] h-2 rounded-none"
               />
               <div className="flex justify-between text-[11px] font-mono text-[#F2EDE4]/50 mt-1">
-                <span>5 hrs (Casual)</span>
-                <span>15 hrs (Focused)</span>
-                <span>30 hrs (Accelerated)</span>
+                <span>{t('calculator.hrsCasual')}</span>
+                <span>{t('calculator.hrsFocused')}</span>
+                <span>{t('calculator.hrsAccelerated')}</span>
               </div>
             </div>
 
             {/* Step 3: Prior Experience */}
             <div>
               <label className="block font-mono text-xs text-[#B8935F] uppercase font-bold mb-2">
-                3. PRIOR CLIENT EXPERIENCE
+                {t('calculator.step3')}
               </label>
               <div className="grid grid-cols-3 gap-2 font-mono text-xs">
                 {[
-                  { id: 'beginner', label: 'ZERO EXPERIENCE' },
-                  { id: 'intermediate', label: 'SOME FREELANCING' },
-                  { id: 'experienced', label: 'AGENCY / B2B EXPERIENCE' },
+                  { id: 'beginner', label: t('calculator.expZero') },
+                  { id: 'intermediate', label: t('calculator.expSome') },
+                  { id: 'experienced', label: t('calculator.expAgency') },
                 ].map((exp) => (
                   <button
                     key={exp.id}
@@ -129,43 +131,43 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
 
               <div className="text-center pb-3 border-b border-dashed border-[#1A1A1A]/30">
                 <div className="font-bold tracking-widest text-sm uppercase">
-                  PROJECTED PERFORMANCE RECEIPT
+                  {t('calculator.receiptTitle')}
                 </div>
                 <div className="text-[10px] text-[#1A1A1A]/60 uppercase mt-0.5">
-                  ESTIMATED LEDGER PROJECTION
+                  {t('calculator.receiptSubtitle')}
                 </div>
               </div>
 
               <div className="py-2 space-y-2 text-[#1A1A1A]">
                 <div className="flex justify-between py-1 border-b border-dotted border-[#1A1A1A]/20">
-                  <span className="text-[#1A1A1A]/60">TARGET STREAM:</span>
+                  <span className="text-[#1A1A1A]/60">{t('calculator.targetStream')}</span>
                   <span className="font-bold text-right max-w-[180px] truncate">{selectedCourse.item}</span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-dotted border-[#1A1A1A]/20">
-                  <span className="text-[#1A1A1A]/60">TUITION CAPITAL:</span>
+                  <span className="text-[#1A1A1A]/60">{t('calculator.tuitionCapital')}</span>
                   <span className="font-bold">${selectedCourse.investment.toFixed(2)}</span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-dotted border-[#1A1A1A]/20">
-                  <span className="text-[#1A1A1A]/60">WEEKLY INPUT:</span>
-                  <span>{weeklyHours} Hours / Week</span>
+                  <span className="text-[#1A1A1A]/60">{t('calculator.weeklyInput')}</span>
+                  <span>{weeklyHours} {t('calculator.hoursPerWeek')}</span>
                 </div>
 
                 <div className="flex justify-between py-1.5 border-b border-dotted border-[#1A1A1A]/20 bg-[#1A1A1A]/5 p-2">
-                  <span className="font-bold">EST. 1ST INVOICE:</span>
+                  <span className="font-bold">{t('calculator.estFirstInvoice')}</span>
                   <span className="font-bold text-base text-[#0B3D2E]">
                     ${estimatedFirstInvoice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-dotted border-[#1A1A1A]/20">
-                  <span className="text-[#1A1A1A]/60">EST. PAYBACK WINDOW:</span>
-                  <span className="font-bold text-[#C1440E]">{estimatedPaybackDays} Days</span>
+                  <span className="text-[#1A1A1A]/60">{t('calculator.estPaybackWindow')}</span>
+                  <span className="font-bold text-[#C1440E]">{estimatedPaybackDays} {t('calculator.days')}</span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-dotted border-[#1A1A1A]/20">
-                  <span className="text-[#1A1A1A]/60">EXPECTED 30-DAY REVENUE:</span>
+                  <span className="text-[#1A1A1A]/60">{t('calculator.expected30Day')}</span>
                   <span className="font-bold text-[#0B3D2E]">
                     ${calculated30DayRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
@@ -174,7 +176,7 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
 
               <div className="pt-3 border-t border-dashed border-[#1A1A1A]/30 text-center space-y-3">
                 <div className="stamp-verified text-xs">
-                  *** GUARANTEED BY ESCROW ***
+                  {t('calculator.guaranteedByEscrow')}
                 </div>
 
                 <button
@@ -182,7 +184,7 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
                   className="w-full bg-[#C1440E] hover:bg-[#a83a0b] text-[#F2EDE4] font-mono text-xs font-bold py-3 px-4 rounded-[2px] transition-colors flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
                 >
                   <Printer className="w-4 h-4" />
-                  <span>Lock In This Receipt</span>
+                  <span>{t('calculator.lockInReceipt')}</span>
                 </button>
               </div>
 
@@ -197,3 +199,4 @@ export const ReceiptCalculator: React.FC<ReceiptCalculatorProps> = ({ onOpenEnro
     </section>
   );
 };
+
